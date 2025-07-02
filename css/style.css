@@ -1,0 +1,571 @@
+:root {
+    --primary: #1a237e;
+    --secondary: #3949ab;
+    --accent: #00bcd4;
+    --bg: #f5f7fa;
+    --text: #222;
+    --white: #fff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    text-align: center;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background: #181a1b;
+    color: #f5f7fa;
+}
+
+/* Absolutely no change to header, nav, or header-container in dark mode */
+body.dark-mode header,
+body.dark-mode .header-container,
+body.dark-mode nav,
+body.dark-mode nav ul,
+body.dark-mode nav a,
+body.dark-mode header h1 {
+    background: var(--primary) !important;
+    color: var(--white) !important;
+}
+
+/* Prevent tagline color from changing in dark mode, except force white */
+body.dark-mode .tagline {
+    color: #fff !important;
+}
+
+body.dark-mode nav ul {
+    background: #23272f;
+}
+
+body.dark-mode .project-card,
+body.dark-mode .certifications-card,
+body.dark-mode .about-content-centered,
+body.dark-mode .container,
+body.dark-mode .section {
+    background: #23272f;
+    color: #f5f7fa;
+}
+
+body.dark-mode .project-card {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    border: 1.5px solid #6a81ac;
+}
+
+body.dark-mode .project-card img,
+body.dark-mode .profile-photo {
+    background: #23272f;
+}
+
+body.dark-mode .social-links a {
+    color: #80cbc4;
+}
+
+body.dark-mode .social-links a:hover {
+    color: #00bcd4;
+    border-color: #00bcd4;
+}
+
+body.dark-mode footer {
+    background: #23272f;
+    color: #f5f7fa;
+}
+
+/* Change all --primary (#1a237e) to #00bcd4 in dark mode */
+body.dark-mode,
+body.dark-mode h2,
+body.dark-mode header h1,
+body.dark-mode .tagline,
+body.dark-mode nav a,
+body.dark-mode .project-card h3,
+body.dark-mode .project-card p strong,
+body.dark-mode .education-list li strong,
+body.dark-mode .certifications-list li strong,
+body.dark-mode .experience-list li strong,
+body.dark-mode .languages-list li strong,
+body.dark-mode .contact-info li strong {
+    --primary: #00bcd4;
+}
+
+body.dark-mode h2,
+body.dark-mode header h1 {
+    color: #00bcd4;
+}
+
+body.dark-mode nav a:hover,
+body.dark-mode #darkModeToggle:hover {
+    color: #ffffff;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px; /* Reduce max width for better readability */
+    margin: 0 auto;
+    text-align: center;
+}
+
+
+
+header {
+    background: var(--primary);
+    color: var(--white);
+    padding: 1.5rem 0;
+}
+
+.header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    color: var(--accent);
+    text-align: center;
+}
+
+nav {
+    position: relative;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+nav a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+/* Navigation link grows only on hover/focus (glissing) */
+nav ul li a {
+    transition: color 0.2s;
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+/* Light mode hover */
+nav ul li a:hover,
+nav ul li a:focus {
+    color: var(--accent) !important;
+    font-weight: 700;
+}
+
+/* Dark mode: nav link hover/focus becomes black */
+body.dark-mode nav ul li a:hover,
+body.dark-mode nav ul li a:focus {
+    color: #111 !important;
+    font-weight: 700;
+}
+
+/* Navigation links always white in dark mode, even on hover/focus */
+body.dark-mode nav ul li a,
+body.dark-mode nav ul li a:hover,
+body.dark-mode nav ul li a:focus {
+    color: #fff !important;
+}
+
+/* .active style can keep only color highlight */
+nav ul li a.active {
+    color: var(--accent) !important;
+    font-weight: 700;
+}
+
+/* Navigation active link style */
+nav ul li a.active {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--accent) !important;
+    transition: font-size 0.2s, color 0.2s;
+}
+
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 2rem;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
+.section {
+    padding: 3rem 0 2rem 0;
+}
+
+.about-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.about-content-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.profile-photo {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--secondary);
+    background: var(--white);
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    justify-items: center;
+}
+
+.project-card {
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(60,60,60,0.07);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: box-shadow 0.2s, transform 0.25s;
+    align-items: center;
+    text-align: center;
+}
+
+/* Card border for both normal and dark mode, personalized colors */
+.project-card,
+.certifications-card {
+    border: 2px solid #1a237e; /* Normal mode border color */
+}
+
+/* Dark mode: personalized border color */
+body.dark-mode .project-card,
+body.dark-mode .certifications-card {
+    border: 2px solid #00bcd4; /* Dark mode border color (amber/orange as example) */
+}
+
+.project-card:hover, .project-card:focus-within {
+    box-shadow: 0 4px 16px rgba(60,60,60,0.13);
+    transform: scale(1.05);
+    z-index: 2;
+}
+
+.project-card img {
+    width: 100%;
+    max-width: 320px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: var(--bg);
+}
+
+/* Specific style for the event reservation image */
+.project-card img[alt="Event Reservation System"] {
+    width: 100%;
+    max-width: 320px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: #f5f7fa;
+}
+
+h2 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+ul {
+    list-style: disc inside;
+    margin-top: 1rem;
+}
+
+.education-list,
+.certifications-list,
+.experience-list,
+.languages-list,
+.contact-info {
+    list-style: none;
+    padding-left: 0;
+    text-align: center;
+    display: inline-block;
+    margin: 0 auto 1rem auto;
+}
+
+.education-list {
+    max-width: 450px;
+    word-break: break-word;
+    white-space: normal;
+}
+
+.education-list li,
+.certifications-list li,
+.experience-list li,
+.languages-list li,
+.contact-info li {
+    margin-bottom: 0.7rem;
+}
+
+.contact-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+    justify-content: center;
+}
+
+.social-links a {
+    color: var(--secondary);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.social-links a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+footer {
+    background: var(--secondary);
+    color: var(--white);
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 2rem;
+    font-size: 0.95rem;
+}
+
+#darkModeToggle {
+    background: var(--accent);
+    border: none;
+    color: #fff;
+    font-size: 1.1rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 22px;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+    margin-left: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+}
+
+#darkModeToggle:hover, #darkModeToggle:focus,
+body.dark-mode #darkModeToggle:hover,
+body.dark-mode #darkModeToggle:focus {
+    background: #222 !important; /* Slightly lighter than #111 */
+    color: #e0e0e0;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+}
+
+body.dark-mode #darkModeToggle {
+    background: #111 !important;
+    color: #fff;
+}
+
+body.dark-mode #darkModeToggle:hover,
+body.dark-mode #darkModeToggle:focus {
+    background: #222 !important;
+    color: #e0e0e0;
+}
+
+/* Contact Form Styles */
+form#contactForm {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto 2rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    background: var(--white);
+    padding: 1.5rem 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(60,60,60,0.07);
+}
+
+body.dark-mode form#contactForm {
+    background: #23272f;
+    color: #f5f7fa;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.3rem;
+}
+
+form#contactForm input,
+form#contactForm textarea {
+    padding: 0.7rem;
+    border: 1.5px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+    resize: none;
+}
+
+form#contactForm input:focus,
+form#contactForm textarea:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+body.dark-mode form#contactForm input,
+body.dark-mode form#contactForm textarea {
+    background: #23272f;
+    color: #f5f7fa;
+    border-color: #444;
+}
+
+.form-error {
+    color: #d32f2f;
+    font-size: 0.95rem;
+    min-height: 1.1em;
+    text-align: left;
+    margin-left: 2px;
+}
+
+.form-success {
+    color: #388e3c;
+    font-size: 1rem;
+    margin-top: 0.7rem;
+    text-align: center;
+    min-height: 1.1em;
+}
+
+.contact-btn {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.contact-btn:hover,
+.contact-btn:focus {
+    background: var(--accent);
+    color: #fff;
+}
+
+body.dark-mode .contact-btn {
+    background: #00bcd4;
+    color: #23272f;
+}
+
+body.dark-mode .contact-btn:hover,
+body.dark-mode .contact-btn:focus {
+    background: #0097a7;
+    color: #fff;
+}
+
+.cert-link {
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: var(--primary);
+    background: var(--accent);
+    padding: 0.4rem 1.1rem;
+    border-radius: 18px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+.cert-link:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+/* Make certificate link white in dark mode */
+body.dark-mode .cert-link {
+    color: #fff !important;
+    background: var(--accent);
+}
+
+body.dark-mode .cert-link:hover {
+    background: var(--primary);
+    color: #fff !important;
+}
+
+/* Responsive Design */
+@media (max-width: 800px) {
+    .about-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .header-container {
+        align-items: flex-start;
+    }
+    nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+        background: var(--primary);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        display: none;
+        z-index: 10;
+        padding: 1rem 0;
+    }
+    nav ul.active {
+        display: flex;
+    }
+    .nav-toggle {
+        display: block;
+    }
+}
+
+@media (max-width: 500px) {
+    .container {
+        width: 98%;
+    }
+    .section {
+        padding: 2rem 0 1rem 0;
+    }
+    .project-card img {
+        height: 100px;
+    }
+}
+    .project-card img {
+        height: 100px;
+    }
+}

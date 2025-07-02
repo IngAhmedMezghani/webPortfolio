@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio | Computer Science Student</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div>
+                <h1>Ahmed Mezghani</h1>
+                <p class="tagline">Aspiring Software Engineer & Computer Science Student</p>
+            </div>
+            <button id="darkModeToggle" aria-label="Toggle dark mode">Dark Mode 🌙</button>
+            <nav>
+                <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#certifications">Certifications</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#languages">Languages</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- About Me -->
+        <section id="about" class="section">
+            <div class="container about-container">
+                <div class="about-content-centered">
+                    <img src="assets/images/profile.jpg" class="profile-photo">
+                    <h2>About Me</h2>
+                    <p>
+                        I am a Computer Science student at ENIS Sfax,<br>
+                        passionate about software development and artificial intelligence.<br>
+                        I enjoy building impactful software solutions and exploring the latest advancements in AI.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section id="projects" class="section">
+            <div class="container">
+                <h2>Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <img src="projects/android-app.png">
+                        <h3>Android App for Selling Computer Hardware</h3>
+                        <p><strong>Tech Stack:</strong> Java, Android Studio</p>
+                        <p>
+                            Developed a full-featured mobile application for browsing and purchasing computer hardware. Implemented product catalog, user authentication, and order management. Enhanced user experience with intuitive UI and secure transactions.
+                        </p>
+                    </div><div class="project-card">
+                        <img src="projects/computer-vision.png" alt="Computer Vision Project">
+                        <h3>Football Match Analysis with Computer Vision</h3>
+                        <p><strong>Tech Stack:</strong> Python, YOLO, Machine Learning</p>
+                        <p>
+                            Built a system to analyze football matches using computer vision techniques. Utilized YOLO for object detection and machine learning models to extract and interpret match statistics, providing valuable insights for coaches and analysts.
+                        </p>
+                    </div><div class="project-card">
+                        <img src="projects/event-reservation.png" alt="Event Reservation System" >
+                        <h3>Event Reservation System</h3>
+                        <p><strong>Tech Stack:</strong> HTML, CSS, JavaScript, PHP, MySQL</p>
+                        <p>
+                            Designed and implemented a web-based event reservation platform with a responsive front-end and robust back-end. Enabled users to browse events, reserve seats, and manage bookings efficiently.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section id="education" class="section">
+            <div class="container">
+                <h2>Education</h2>
+                <ul class="education-list">
+                    <li>
+                        <strong>Baccalauréat in Mathematics:</strong> 2022
+                    </li>
+                    <li>
+                        <strong>Achievement:</strong> Admitted to the National Engineering Schools Entrance Exam in 2024
+                    </li>
+                    <li>
+                        <strong>Current studies:</strong> Engineering student in Computer Science at ENIS Sfax, preparing for the national engineering school entrance exam (2024)
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Certifications -->
+        <section id="certifications" class="section">
+            <div class="container">
+                <h2>Certifications</h2>
+                <div class="projects-grid">
+                    <div class="project-card" onclick="window.open('assets/certificates/data-science-intro.pdf', '_blank')">
+                        <h3>Data Science Introduction</h3>
+                        <p><strong>Provider:</strong> 365 Data Science</p>
+                        <p>
+                            Completed an introduction to data science, covering key concepts and practical skills.
+                        </p>
+                        <a href="assets/certificates/data-science-intro.pdf" target="_blank" class="cert-link" onclick="event.stopPropagation();">View Certificate</a>
+                    </div>
+                    <div class="project-card" onclick="window.open('assets/certificates/python-data-associate.pdf', '_blank')">
+                        <h3>Python Data Associate</h3>
+                        <p><strong>Provider:</strong> DataCamp</p>
+                        <p>
+                            Skills: Python, data manipulation, visualization.
+                        </p>
+                        <a href="assets/certificates/python-data-associate.pdf" target="_blank" class="cert-link" onclick="event.stopPropagation();">View Certificate</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience -->
+        <section id="experience" class="section">
+            <div class="container">
+                <h2>Experience</h2>
+                <ul class="experience-list">
+                    <li><strong>Participant:</strong> PYFAC-X</li>
+                    <li><strong>Participant:</strong> Hello World 5.0</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Languages -->
+        <section id="languages" class="section">
+            <div class="container">
+                <h2>Languages</h2>
+                <ul class="languages-list">
+                    <li><strong>French</strong></li>
+                    <li><strong>Arabic</strong></li>
+                    <li><strong>English</strong></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="section">
+            <div class="container contact-container">
+                <h2>Contact</h2>
+                <form id="contactForm" method="POST">
+                    <div class="form-group">
+                        <input type="text" name="name" id="name" placeholder="Your Name" required>
+                        <span class="form-error" id="nameError"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" id="email" placeholder="Your Email" required>
+                        <span class="form-error" id="emailError"></span>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" id="message" placeholder="Your Message" rows="5" required></textarea>
+                        <span class="form-error" id="messageError"></span>
+                    </div>
+                    <button type="submit" class="contact-btn">Send Message</button>
+                    <div id="formSuccess" class="form-success"></div>
+                </form>
+                <ul class="contact-info">
+                    <li><strong>Phone:</strong> +216 26 730 531</li>
+                    <li><strong>Email:</strong> ahmed.mezghani@enis.tn</li>
+                    <li><strong>Location:</strong> Sfax, Tunisia</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/Ing-Ahmed-Mezghani" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/IngAhmedMezghani" target="_blank">GitHub</a>
+                    <a href="assets/cv.pdf" download>Download CV (PDF)</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Ahmed Mezghani. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+</html>
