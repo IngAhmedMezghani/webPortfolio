@@ -109,12 +109,10 @@ body.dark-mode #darkModeToggle:hover {
 
 .container {
     width: 90%;
-    max-width: 1100px; /* Reduce max width for better readability */
+    max-width: 1100px;
     margin: 0 auto;
     text-align: center;
 }
-
-
 
 header {
     background: var(--primary);
@@ -151,6 +149,12 @@ nav ul {
     display: flex;
     gap: 1.5rem;
     justify-content: center;
+    align-items: center;
+    background: var(--primary);
+    margin: 0;
+    padding: 0.5rem 0;
+    border-radius: 0;
+    box-shadow: none;
 }
 
 nav a {
@@ -160,7 +164,7 @@ nav a {
     transition: color 0.2s;
 }
 
-/* Navigation link grows only on hover/focus (glissing) */
+/* Navigation link grows only on hover/focus */
 nav ul li a {
     transition: color 0.2s;
     font-size: 1.2em;
@@ -194,12 +198,50 @@ nav ul li a.active {
     font-weight: 700;
 }
 
+/* Active link style for both */
+nav ul li a.active,
+.sticky-nav ul li a.active {
+    color: var(--accent) !important;
+    background: rgba(0,188,212,0.13);
+    font-weight: 700;
+}
+
+/* Make .active in sticky nav look like hover/focus */
+.sticky-nav ul li a.active {
+    color: #00bcd4 !important;
+    background: rgba(0,188,212,0.08) !important;
+    font-weight: 700;
+}
+
 /* Navigation active link style */
 nav ul li a.active {
-    font-size: 1.8em;
     font-weight: 700;
     color: var(--accent) !important;
-    transition: font-size 0.2s, color 0.2s;
+    transition: color 0.2s, background 0.2s;
+}
+
+.scrolled .sticky-nav ul li a.active {
+    color: #00bcd4 !important;
+    background: rgba(0,188,212,0.08) !important;
+}
+
+.scrolled nav ul li a.active {
+    color: var(--accent) !important;
+    background: rgba(0,188,212,0.08);
+}
+
+/* Make .active in sticky nav look like hover/focus */
+.sticky-nav ul li a.active {
+    color: #00bcd4 !important;
+    background: rgba(0,188,212,0.08) !important;
+    font-weight: 700;
+}
+
+/* Navigation active link style */
+nav ul li a.active {
+    font-weight: 700;
+    color: var(--accent) !important;
+    transition: color 0.2s, background 0.2s;
 }
 
 .nav-toggle {
@@ -214,6 +256,7 @@ nav ul li a.active {
 
 .section {
     padding: 3rem 0 2rem 0;
+    animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) both;
 }
 
 .about-container {
@@ -230,8 +273,8 @@ nav ul li a.active {
 }
 
 .profile-photo {
-    width: 180px;
-    height: 180px;
+    width: 270px;
+    height: 270px;
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid var(--secondary);
@@ -240,7 +283,7 @@ nav ul li a.active {
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     margin-top: 2rem;
     justify-items: center;
@@ -250,13 +293,15 @@ nav ul li a.active {
     background: var(--white);
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(60,60,60,0.07);
-    padding: 1.5rem;
+    padding: 2.1rem 1.2rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
     transition: box-shadow 0.2s, transform 0.25s;
     align-items: center;
     text-align: center;
+    min-width: 330px;
+    max-width: 380px;
 }
 
 /* Card border for both normal and dark mode, personalized colors */
@@ -268,12 +313,13 @@ nav ul li a.active {
 /* Dark mode: personalized border color */
 body.dark-mode .project-card,
 body.dark-mode .certifications-card {
-    border: 2px solid #00bcd4; /* Dark mode border color (amber/orange as example) */
+    border: 2px solid #00bcd4; /* Dark mode border color */
 }
 
-.project-card:hover, .project-card:focus-within {
+.project-card:hover,
+.project-card:focus-within {
     box-shadow: 0 4px 16px rgba(60,60,60,0.13);
-    transform: scale(1.05);
+    transform: scale(1.4);
     z-index: 2;
 }
 
@@ -294,6 +340,10 @@ body.dark-mode .certifications-card {
     object-fit: cover;
     border-radius: 6px;
     background: #f5f7fa;
+}
+
+.project-card {
+    justify-self: center;
 }
 
 h2 {
@@ -352,11 +402,83 @@ ul {
     font-weight: 500;
     border-bottom: 1px solid transparent;
     transition: border-color 0.2s, color 0.2s;
+    position: relative;
+    overflow: hidden;
 }
 
-.social-links a:hover {
-    color: var(--accent);
-    border-color: var(--accent);
+.social-links a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.25s;
+}
+
+.social-links a:hover::after,
+.social-links a:focus::after {
+    transform: scaleX(1);
+}
+
+.simple-contact-links {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.simple-contact-links a {
+    color: var(--primary); /* Blue in light mode (#1a237e) */
+    text-decoration: underline; /* Underlined by default */
+    font-weight: 500;
+    transition: color 0.2s, font-size 0.2s, transform 0.25s;
+    position: relative;
+    overflow: hidden;
+}
+
+.simple-contact-links a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.25s;
+}
+
+.simple-contact-links a:hover,
+.simple-contact-links a:focus {
+    color: var(--accent); /* Lighter blue on hover (#00bcd4) */
+    font-size: 1.1em; /* Slightly larger on hover */
+}
+
+.simple-contact-links a:hover::after,
+.simple-contact-links a:focus::after {
+    transform: scaleX(1);
+}
+
+/* Dark mode styles for contact links */
+body.dark-mode .simple-contact-links a {
+    color: var(--accent); /* Blue in dark mode (#00bcd4) */
+    text-decoration: underline;
+}
+
+body.dark-mode .simple-contact-links a::after {
+    background: #fff; /* White underline for hover in dark mode */
+}
+
+body.dark-mode .simple-contact-links a:hover,
+body.dark-mode .simple-contact-links a:focus {
+    color: #fff; /* White on hover in dark mode for contrast */
+    font-size: 1.1em; /* Same size increase */
+}
+
+body.dark-mode .simple-contact-links a:hover::after,
+body.dark-mode .simple-contact-links a:focus::after {
+    transform: scaleX(1);
 }
 
 footer {
@@ -379,26 +501,46 @@ footer {
     margin-bottom: 0.5rem;
     margin-left: 1rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-    transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+    transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.18s ease;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    will-change: background; /* Hint to browser for smoother background transitions */
+}
+
+#darkModeToggle .toggle-icon {
+    font-size: 1.25em;
+    transition: transform 0.4s cubic-bezier(.68,-0.55,.27,1.55);
+    display: inline-block;
+}
+
+body.dark-mode #darkModeToggle {
+    background: #23272f; /* Removed !important to avoid conflicts */
+    color: #00bcd4;
+    box-shadow: 0 2px 12px rgba(0,188,212,0.13);
 }
 
 #darkModeToggle:hover, #darkModeToggle:focus,
 body.dark-mode #darkModeToggle:hover,
 body.dark-mode #darkModeToggle:focus {
-    background: #222 !important; /* Slightly lighter than #111 */
-    color: #e0e0e0;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.13);
-}
-
-body.dark-mode #darkModeToggle {
-    background: #111 !important;
+    background: #00bcd4;
     color: #fff;
+    box-shadow: 0 4px 16px rgba(0,188,212,0.18);
+    transform: scale(1.08);
 }
 
-body.dark-mode #darkModeToggle:hover,
-body.dark-mode #darkModeToggle:focus {
-    background: #222 !important;
-    color: #e0e0e0;
+body.dark-mode #darkModeToggle .toggle-icon {
+    transform: rotate(-180deg);
+    color: #00bcd4;
+}
+
+#darkModeToggle .toggle-icon {
+    color: #fff;
 }
 
 /* Contact Form Styles */
@@ -487,7 +629,7 @@ body.dark-mode form#contactForm textarea {
 
 body.dark-mode .contact-btn {
     background: #00bcd4;
-    color: #23272f;
+    color: #fff;
 }
 
 body.dark-mode .contact-btn:hover,
@@ -525,47 +667,339 @@ body.dark-mode .cert-link:hover {
     color: #fff !important;
 }
 
-/* Responsive Design */
-@media (max-width: 800px) {
-    .about-container {
-        flex-direction: column;
-        align-items: flex-start;
+/* Fade-in animation for sections */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
     }
-    .header-container {
-        align-items: flex-start;
-    }
-    nav ul {
-        flex-direction: column;
-        gap: 0.5rem;
-        background: var(--primary);
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        display: none;
-        z-index: 10;
-        padding: 1rem 0;
-    }
-    nav ul.active {
-        display: flex;
-    }
-    .nav-toggle {
-        display: block;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-@media (max-width: 500px) {
-    .container {
-        width: 98%;
-    }
-    .section {
-        padding: 2rem 0 1rem 0;
-    }
-    .project-card img {
-        height: 100px;
-    }
+/* Staggered animation for project and certification cards */
+.projects-grid .project-card {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
-    .project-card img {
-        height: 100px;
-    }
+
+.projects-grid .project-card:nth-child(1) { animation-delay: 0.1s; }
+.projects-grid .project-card:nth-child(2) { animation-delay: 0.25s; }
+.projects-grid .project-card:nth-child(3) { animation-delay: 0.4s; }
+.projects-grid .project-card:nth-child(4) { animation-delay: 0.55s; }
+.projects-grid .project-card:nth-child(5) { animation-delay: 0.7s; }
+
+/* Button pop effect */
+.contact-btn, #darkModeToggle {
+    transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.contact-btn:hover, .contact-btn:focus,
+#darkModeToggle:hover, #darkModeToggle:focus {
+    transform: scale(1.06);
+}
+
+/* Hero Section Styles */
+.hero-big {
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+    letter-spacing: normal;
+    line-height: 1.2;
+    text-shadow: none;
+    background: none;
+}
+
+body.dark-mode .hero-big {
+    color: #fff;
+    text-shadow: none;
+}
+
+/* Sticky Navigation Styles */
+.sticky-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 100;
+    background: var(--primary);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    transition: background 0.2s;
+}
+
+body.dark-mode .sticky-nav {
+    background: var(--primary) !important;
+}
+
+/* Prevent content from hiding under sticky nav */
+body.has-sticky-nav main {
+    margin-top: 60px;
+}
+
+/* Make initial nav bar and sticky nav bar look the same */
+nav ul,
+.sticky-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    background: var(--primary);
+    margin: 0;
+    padding: 0.5rem 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+nav ul li,
+.sticky-nav ul li {
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a,
+.sticky-nav ul li a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1em;
+    padding: 0.3em 0.8em;
+    border-radius: 18px;
+    transition: color 0.2s, background 0.2s;
+    background: transparent;
+    display: inline-block;
+}
+
+/* Accent color for all links on hover/focus */
+nav ul li a:hover,
+nav ul li a:focus,
+.sticky-nav ul li a:hover,
+.sticky-nav ul li a:focus {
+    color: #00bcd4 !important;
+    background: rgba(0,188,212,0.08) !important;
+}
+
+/* Sticky nav: slightly bigger font size for links, but not too much */
+.sticky-nav ul li a {
+    font-size: 1.1em;
+}
+
+/* Sticky nav: accent color for all links on hover/focus */
+.sticky-nav ul li a:hover,
+.sticky-nav ul li a:focus {
+    color: #00bcd4 !important;
+    background: rgba(0,188,212,0.08) !important;
+}
+
+/* Special hover color for Contact nav link */
+nav ul li:last-child a:hover,
+nav ul li:last-child a:focus,
+.sticky-nav ul li:last-child a:hover,
+.sticky-nav ul li:last-child a:focus {
+    color: #00bcd4 !important;
+    background: rgba(0,188,212,0.08) !important;
+}
+
+/* Sticky nav: only color and background for .active, no font-size change */
+.sticky-nav ul li a.active {
+    color: #00bcd4 !important;
+    background: rgba(0,188,212,0.08) !important;
+    font-weight: 700;
+}
+
+/* Remove font-size change for .active in normal nav too */
+nav ul li a.active {
+    color: var(--accent) !important;
+    background: rgba(0,188,212,0.08);
+    font-weight: 700;
+    transition: color 0.2s, background 0.2s;
+}
+
+/* Center the last project card below the second card if there are 3 or 4 projects */
+.projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+}
+
+.projects-grid > .project-card:last-child:nth-child(3),
+.projects-grid > .project-card:last-child:nth-child(4) {
+    grid-column: 1 / -1;
+    justify-self: center;
+}
+
+/* For 4 projects: keep first 3 in a row, last one centered below */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+    justify-items: center;
+}
+
+.projects-grid > .project-card:last-child:nth-child(4) {
+    grid-column: 2 / 3;
+    justify-self: center;
+}
+
+/* Certifications section: two cards, left and right, centered horizontally */
+#certifications .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem 4rem;
+    justify-items: center;
+    align-items: stretch;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#certifications .project-card {
+    min-width: 280px;
+    max-width: 350px;
+    width: 100%;
+    margin: 0;
+}
+
+/* === MOBILE RESPONSIVENESS: FINAL VERSION === */
+@media (max-width: 768px) {
+  /* Disable sticky navbar on mobile */
+  .sticky-nav {
+    position: static !important;
+    box-shadow: none !important;
+  }
+
+  body.has-sticky-nav main {
+    margin-top: 0 !important;
+  }
+
+  /* Center layout and content */
+  body, html {
+    text-align: center;
+  }
+
+  .container,
+  .header-container,
+  .about-container,
+  .about-content-centered,
+  .project-card,
+  .contact-container,
+  form#contactForm,
+  footer,
+  nav ul,
+  .social-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+  }
+
+  /* Navbar: stack vertically */
+  nav ul {
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  /* Projects and Certifications: single column, stacked vertically */
+  .projects-grid,
+  #projects .projects-grid,
+  #certifications .projects-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem !important;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Cards: full width, no zoom, stacked vertically */
+  .project-card {
+    width: 95%;
+    max-width: 95%;
+    transform: scale(1) !important;
+    margin: 0 auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .project-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    max-height: 200px;
+  }
+
+  /* Profile image smaller + centered */
+  .profile-photo {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto;
+  }
+
+  /* Typography */
+  h1, h2 {
+    font-size: 1.6rem;
+  }
+
+  .tagline {
+    font-size: 1rem;
+  }
+
+  .container {
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+  }
+
+  /* Contact form and buttons */
+  form#contactForm {
+    padding: 1rem;
+  }
+
+  .contact-btn,
+  #darkModeToggle,
+  .cert-link {
+    margin: 0 auto;
+  }
+
+  /* Footer */
+  footer {
+    font-size: 0.85rem;
+    padding: 0.8rem 0;
+  }
+
+  /* Social links wrapping */
+  .social-links {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  /* Accessibility: touch targets */
+  a, button, .cert-link {
+    min-height: 44px;
+    min-width: 44px;
+    line-height: 44px;
+  }
+
+  /* Form feedback */
+  .form-error {
+    color: red;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .form-success {
+    color: green;
+    font-size: 1rem;
+    margin-top: 1rem;
+    text-align: center;
+  }
 }

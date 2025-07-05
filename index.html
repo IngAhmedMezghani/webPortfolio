@@ -5,15 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Portfolio | Computer Science Student</title>
     <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+    (function(){
+        emailjs.init({
+            publicKey: "RmLkXHmpGPS04bGhB",
+        });
+    })();
+    </script>
+
 </head>
 <body>
     <header>
         <div class="container header-container">
-            <div>
-                <h1>Ahmed Mezghani</h1>
-                <p class="tagline">Aspiring Software Engineer & Computer Science Student</p>
-            </div>
-            <button id="darkModeToggle" aria-label="Toggle dark mode">Dark Mode 🌙</button>
+            <h1>Ahmed Mezghani</h1>
+            <p class="tagline">Aspiring Software Engineer & Computer Science Student</p>
+            <button id="darkModeToggle" aria-label="Toggle dark mode">
+                <span class="toggle-icon" id="darkModeIcon">🌙</span>
+                <span id="darkModeText">Dark Mode</span>
+            </button>
             <nav>
                 <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
                 <ul>
@@ -30,7 +42,6 @@
     </header>
 
     <main>
-        <!-- About Me -->
         <section id="about" class="section">
             <div class="container about-container">
                 <div class="about-content-centered">
@@ -38,24 +49,38 @@
                     <h2>About Me</h2>
                     <p>
                         I am a Computer Science student at ENIS Sfax,<br>
-                        passionate about software development and artificial intelligence.<br>
+                        passionately interested in software development and artificial intelligence.<br>
                         I enjoy building impactful software solutions and exploring the latest advancements in AI.
                     </p>
                 </div>
             </div>
         </section>
 
-        <!-- Projects -->
+        <section id="cv-internship" class="section">
+            <div class="container">
+                <h2>Computer Vision Internship</h2>
+                <div class="about-content-centered">
+                    <p>
+                        In the summer of 2025,<br>
+                        💼 I’m currently an intern at
+                        <a href="https://www.visshopai.com/" target="_blank" rel="noopener" style="color:#00bcd4;font-weight:600;">VisShop AI</a>,
+                        working on the <strong>VisioTrack</strong> project — <br>an intelligent real-time crowd monitoring system <br>using computer vision (YOLOv8, DeepSORT), FastAPI, and React.<br>
+                        My contributions focus on person detection, tracking in defined zones, alert generation, and visual analytics.
+                    </p>
+                </div>
+            </div>
+        </section>
+
         <section id="projects" class="section">
             <div class="container">
                 <h2>Projects</h2>
                 <div class="projects-grid">
                     <div class="project-card">
-                        <img src="projects/android-app.png">
+                        <img src="projects/android-app.png" alt="Android App for Selling Computer Hardware">
                         <h3>Android App for Selling Computer Hardware</h3>
                         <p><strong>Tech Stack:</strong> Java, Android Studio</p>
                         <p>
-                            Developed a full-featured mobile application for browsing and purchasing computer hardware. Implemented product catalog, user authentication, and order management. Enhanced user experience with intuitive UI and secure transactions.
+                            Developed a full-featured mobile application for Browse and purchasing computer hardware. Implemented product catalog, user authentication, and order management. Enhanced user experience with intuitive UI and secure transactions.
                         </p>
                     </div><div class="project-card">
                         <img src="projects/computer-vision.png" alt="Computer Vision Project">
@@ -72,11 +97,18 @@
                             Designed and implemented a web-based event reservation platform with a responsive front-end and robust back-end. Enabled users to browse events, reserve seats, and manage bookings efficiently.
                         </p>
                     </div>
+                    <div class="project-card">
+                        <img src="projects\webporfolio.png" alt="Personal Portfolio Website">
+                        <h3>Personal Portfolio Website</h3>
+                        <p><strong>Tech Stack:</strong> HTML, CSS, JavaScript</p>
+                        <p>
+                            Developed a personal portfolio website to showcase my projects and skills. Focused on responsive design and user-friendly navigation to enhance the overall user experience.
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Education -->
         <section id="education" class="section">
             <div class="container">
                 <h2>Education</h2>
@@ -94,7 +126,6 @@
             </div>
         </section>
 
-        <!-- Certifications -->
         <section id="certifications" class="section">
             <div class="container">
                 <h2>Certifications</h2>
@@ -119,18 +150,16 @@
             </div>
         </section>
 
-        <!-- Experience -->
         <section id="experience" class="section">
             <div class="container">
                 <h2>Experience</h2>
                 <ul class="experience-list">
-                    <li><strong>Participant:</strong> PYFAC-X</li>
-                    <li><strong>Participant:</strong> Hello World 5.0</li>
+                    <li><strong>Media Member :</strong> PYFAC-X</li>
+                    <li><strong>Participant:</strong> Hello World 5.0 (Competetive programming Competition)</li>
                 </ul>
             </div>
         </section>
 
-        <!-- Languages -->
         <section id="languages" class="section">
             <div class="container">
                 <h2>Languages</h2>
@@ -142,45 +171,57 @@
             </div>
         </section>
 
-        <!-- Contact -->
-        <section id="contact" class="section">
-            <div class="container contact-container">
-                <h2>Contact</h2>
-                <form id="contactForm" method="POST">
-                    <div class="form-group">
-                        <input type="text" name="name" id="name" placeholder="Your Name" required>
-                        <span class="form-error" id="nameError"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" name="email" id="email" placeholder="Your Email" required>
-                        <span class="form-error" id="emailError"></span>
-                    </div>
-                    <div class="form-group">
-                        <textarea name="message" id="message" placeholder="Your Message" rows="5" required></textarea>
-                        <span class="form-error" id="messageError"></span>
-                    </div>
-                    <button type="submit" class="contact-btn">Send Message</button>
-                    <div id="formSuccess" class="form-success"></div>
-                </form>
-                <ul class="contact-info">
-                    <li><strong>Phone:</strong> +216 26 730 531</li>
-                    <li><strong>Email:</strong> ahmed.mezghani@enis.tn</li>
-                    <li><strong>Location:</strong> Sfax, Tunisia</li>
-                </ul>
-                <div class="social-links">
-                    <a href="https://www.linkedin.com/in/Ing-Ahmed-Mezghani" target="_blank">LinkedIn</a>
-                    <a href="https://github.com/IngAhmedMezghani" target="_blank">GitHub</a>
-                    <a href="assets/cv.pdf" download>Download CV (PDF)</a>
-                </div>
+        <form id="contactForm">
+            <div class="form-group">
+                <input type="text" name="name" id="name" placeholder="Your Name" required>
+                <span class="form-error" id="nameError"></span>
+            </div>
+            <div class="form-group">
+                <input type="text" name="subject" id="subject" placeholder="Subject" required>
+                <span class="form-error" id="subjectError"></span>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" id="email" placeholder="Your Email" required>
+                <span class="form-error" id="emailError"></span>
+            </div>
+            <div class="form-group">
+                <textarea name="message" id="message" placeholder="Your Message" rows="5" required></textarea>
+                <span class="form-error" id="messageError"></span>
+            </div>
+            <button type="submit" class="contact-btn">Send Message</button>
+            <div id="formSuccess" class="form-success"></div>
+        </form>
+        <section id = "contact" class="section">
+            <div class="container">
+            <h2>Contact</h2>
+            <div class="simple-contact-links">
+                <a href="https://github.com/IngAhmedMezghani" target="_blank">GitHub</a> 
+                <a href="https://www.linkedin.com/in/Ing-Ahmed-Mezghani" target="_blank">LinkedIn</a> 
+                <a href="assets\Ahmed_Mezghani_eng.pdf" download>Download CV</a>
             </div>
         </section>
     </main>
+
+
+    <div id="chatbase-bubble"></div>
+    <script src="js/main.js"></script>
+    <script>
+        window.chatbaseConfig = {
+            chatbotId: "E_FyKEP9q2nmq-f5MZ6xE"
+        }
+    </script>
+    <script src="https://www.chatbase.co/embed.min.js" id="E_FyKEP9q2nmq-f5MZ6xE" defer></script>
+
+    
+
 
     <footer>
         <div class="container">
             <p>&copy; 2025 Ahmed Mezghani. All rights reserved.</p>
         </div>
     </footer>
-    <script src="js/main.js"></script>
+
+    
+    
 </body>
 </html>

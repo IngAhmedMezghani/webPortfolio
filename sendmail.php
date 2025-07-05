@@ -40,48 +40,132 @@
 <body>
     <div class="result-container">
         <?php
-        // Load PHPMailer classes
-        require 'PHPMailer/src/PHPMailer.php';
-        require 'PHPMailer/src/SMTP.php';
-        require 'PHPMailer/src/Exception.php';
-
-        use PHPMailer\PHPMailer\PHPMailer;
-        use PHPMailer\PHPMailer\Exception;
-
-        header('Content-Type: text/plain');
-
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $mail = new PHPMailer(true);
-            try {
-                // SMTP configuration
-                $mail->isSMTP();
-                $mail->Host = 'smtp.gmail.com'; // For Gmail
-                $mail->SMTPAuth = true;
-                $mail->Username = 'your_gmail@gmail.com'; // Your SMTP username
-                $mail->Password = 'your_app_password';    // Your SMTP password or app password
-                $mail->SMTPSecure = 'tls';
-                $mail->Port = 587;
+            $to = "ahmed.mezghani@enis.tn";
+            $subject = isset($_POST['subject']) ? $_POST['subject'] : 'Contact Form Submission';
+            $name = isset($_POST['name']) ? $_POST['name'] : '';
+            $email = isset($_POST['email']) ? $_POST['email'] : '';
+            $message = isset($_POST['message']) ? $_POST['message'] : '';
+            $headers = "From: $name <$email>\r\nReply-To: $email\r\n";
 
-                // Email content
-                $mail->setFrom('your_gmail@gmail.com', 'Portfolio Contact');
-                $mail->addAddress('ahmed.mezghani@enis.tn');
-                $mail->addReplyTo($_POST["email"], $_POST["name"]);
-                $mail->Subject = "Portfolio Contact Form: " . htmlspecialchars($_POST["name"]);
-                $mail->Body = "Name: " . htmlspecialchars($_POST["name"]) . "\n"
-                            . "Email: " . htmlspecialchars($_POST["email"]) . "\n"
-                            . "Message:\n" . htmlspecialchars($_POST["message"]);
+            // For debugging: display errors
+            ini_set('display_errors', 1);
+            error_reporting(E_ALL);
 
-                $mail->send();
-                echo "success";
-            } catch (Exception $e) {
-                error_log("Mailer Error: " . $mail->ErrorInfo);
-                echo "error";
+            if (empty($to) || empty($email) || empty($message)) {
+                echo "<span class='error'>Error: missing fields</span>";
+                exit;
+            }
+
+            // Try to send the mail and output error if it fails
+            if (function_exists('mail')) {
+                $result = mail($to, $subject, $message, $headers);
+                if ($result) {
+                    echo "<span class='success'>Your message was sent successfully!</span>";
+                } else {
+                    echo "<span class='error'>Error: mail() failed. Your server is not configured to send emails.<br>
+                    <br>
+                    <b>What to do:</b><br>
+                    <ul style='text-align:left;max-width:400px;margin:0 auto;'>
+                        <li>If you are on localhost, PHP mail will not work unless you set up SMTP (see MailHog, Papercut, or similar).</li>
+                        <li>If you are on shared hosting, contact your provider to enable mail() or use SMTP.</li>
+                        <li>For reliable email, use PHPMailer with SMTP (Gmail, Outlook, etc.).</li>
+                    </ul>
+                    </span>";
+                }
+            } else {
+                echo "<span class='error'>Error: mail() function is not available in your PHP installation.</span>";
             }
         } else {
-            echo "error";
+            echo "<span class='error'>Error: invalid request</span>";
         }
         ?>
         <a href="index.html">Back to Portfolio</a>
+    </div>
+
+    <!-- Troubleshooting email sending in PHP -->
+    <div class="result-container" style="margin-top: 2rem; font-size: 0.9rem; text-align: left;">
+        <h3 style="color: #00bcd4;">Troubleshooting email sending in PHP</h3>
+        <ol>
+            <li><strong>Are you running on localhost (XAMPP, WAMP, MAMP, etc.)?</strong>
+                <ul>
+                    <li>The PHP <code>mail()</code> function will NOT work out-of-the-box on most local servers.</li>
+                    <li>You must configure an SMTP server or use a tool like <a href="https://github.com/mailhog/MailHog" style="color: #00bcd4;">MailHog</a> or <a href="https://github.com/ChangemakerStudios/Papercut-SMTP" style="color: #00bcd4;">Papercut SMTP</a> for local testing.</li>
+                </ul>
+            </li>
+            <li><strong>Are you on shared hosting or a real server?</strong>
+                <ul>
+                    <li>Some hosts block the <code>mail()</code> function for spam prevention.</li>
+                    <li>Check your host's documentation or control panel for email settings.</li>
+                </ul>
+            </li>
+            <li><strong>Check your PHP error logs.</strong>
+                <ul>
+                    <li>Errors from <code>mail()</code> are often silent. Enable error reporting in your PHP file:</li>
+                    <pre><code>ini_set('display_errors', 1);
+error_reporting(E_ALL);</code></pre>
+                </ul>
+            </li>
+            <li><strong>Try a simple test script:</strong>
+                <pre><code>&lt;?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+if(mail('your@email.com', 'Test', 'Test message')) {
+    echo 'Mail sent';
+} else {
+    echo 'Mail failed';
+}
+?&gt;</code></pre>
+                <ul>
+                    <li>Replace <code>your@email.com</code> with your real email.</li>
+                    <li>If you see "Mail failed", your server is not configured for email.</li>
+                </ul>
+            </li>
+            <li><strong>For reliable email, use PHPMailer with SMTP:</strong>
+                <ul>
+                    <li>Download <a href="https://github.com/PHPMailer/PHPMailer" style="color: #00bcd4;">PHPMailer</a>.</li>
+                    <li>Use your Gmail, Outlook, or another SMTP provider for sending.</li>
+                    <li>Example:</li>
+                    <pre><code>&lt;?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
+$mail = new PHPMailer(true);
+try {
+    $mail-&gt;isSMTP();
+    $mail-&gt;Host = 'smtp.gmail.com';
+    $mail-&gt;SMTPAuth = true;
+    $mail-&gt;Username = 'your@gmail.com';
+    $mail-&gt;Password = 'your_app_password';
+    $mail-&gt;SMTPSecure = 'tls';
+    $mail-&gt;Port = 587;
+
+    $mail-&gt;setFrom($_POST['email'], $_POST['name']);
+    $mail-&gt;addAddress('your@email.com');
+    $mail-&gt;Subject = $_POST['subject'];
+    $mail-&gt;Body = $_POST['message'];
+
+    $mail-&gt;send();
+    echo 'success';
+} catch (Exception $e) {
+    echo 'error: ' . $mail-&gt;ErrorInfo;
+}
+?&gt;</code></pre>
+                    <li>You must use an <a href="https://support.google.com/accounts/answer/185833" style="color: #00bcd4;">App Password</a> for Gmail.</li>
+                </ul>
+            </li>
+            <li><strong>Summary:</strong>
+                <ul>
+                    <li>If you are on localhost, PHP mail will not work unless you set up SMTP.</li>
+                    <li>On real hosting, check with your provider.</li>
+                    <li>For best results, use PHPMailer with SMTP.</li>
+                </ul>
+            </li>
+        </ol>
+        <p style="color: #d32f2f;">If you need a working example for your environment, tell me if you are on localhost or hosting, and I can give you a step-by-step guide.</p>
     </div>
 </body>
 </html>
